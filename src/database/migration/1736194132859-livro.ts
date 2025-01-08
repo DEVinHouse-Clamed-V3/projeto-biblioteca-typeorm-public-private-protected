@@ -46,7 +46,7 @@ export class livro1736194132859 implements MigrationInterface {
                     type: 'CURRENT_TIMESTAMP'
                 },
                 {
-                    name: 'updated at_at',
+                    name: 'updated_at',
                     type: 'CURRENT_TIMESTAMP'
                 }          
             ]
