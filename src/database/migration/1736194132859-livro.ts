@@ -43,11 +43,11 @@ export class livro1736194132859 implements MigrationInterface {
                 },
                 {
                     name: 'created_at',
-                    type: 'CURRENT_TIMESTAMP'
+                    type: 'timestamp'
                 },
                 {
                     name: 'updated_at',
-                    type: 'CURRENT_TIMESTAMP'
+                    type: 'timestamp'
                 }          
             ]
             })
