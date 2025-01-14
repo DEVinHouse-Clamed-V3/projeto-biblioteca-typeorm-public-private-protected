@@ -32,18 +32,5 @@ app.listen(3333, () => {
   console.log("Servidor rodando na porta 3333");
 });
 
-const requestData = {
-  titulo: 'Test Product',
-  descricao: 'This is a test product description',
-  price: 19.99,
-  data_publicacao:'11/11/1990',
-  isbn: 'teste',
-  page_count: 333,
-  linguagem: 'portugues',
-  
-};
 
-axios.post('http://localhost:3333/livros/AdicionarLivros',requestData)
-.then((response) => console.log("sucess"))
-.catch((error) => console.log("error"))
 

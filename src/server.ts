@@ -28,3 +28,7 @@ AppDataSource.initialize()
     });
   })
   .catch(() => console.log("Erro ao conectar com o banco de dados"));
+
+
+  
+
