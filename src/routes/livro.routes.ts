@@ -12,13 +12,34 @@ livroRoutes.get("/", async (Request, Response) => {
     Response.send('Oiiiiiiii')
   });
 
-livroRoutes.get("/BuscarLivros", async (Request, Response) => {
+
+// rota para todos os livros!
+livroRoutes.get("/Livros", async (Request, Response) => {
     const livros_banco_dados = await AppDataSource .getRepository(Livro)
 
     const livros = await livros_banco_dados.find()
     Response.json(livros)
   });
 
+
+// rota para buscar um livro
+livroRoutes.get("/BuscarLivro/:livro_id", async(req,res) => {
+  const id_livro = req.params.livro_id
+  const livro = await AppDataSource .getRepository(Livro).findOneBy({
+    id: parseInt(id_livro), // Ensure the ID is an integer
+  });
+
+  if(!livro)
+    {
+      return res.status(400).json({message: 'O livro especificado nao foi encontrado'})
+    }
+  
+    return res.status(200).json(livro)
+
+  
+})
+
+//rota para postar um livro!
 livroRoutes.post("/AdicionarLivros", async(req: Request, res: Response) =>
 {
   console.log("entrei aqui")
