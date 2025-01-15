@@ -85,7 +85,7 @@ livroRoutes.put('/atualizarLivro/:livro_id', async(req, res) =>
 
     if(!livro_atualizar)
       {
-        return res.status(500).json({ message: 'O livro não foi encontrado!'});
+        return res.status(500).json({ message: 'O livro não foi encontrado'});
       }
 
     livro_atualizar.titulo = req_body.titulo || livro_atualizar.titulo
