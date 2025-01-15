@@ -5,7 +5,7 @@ import { AppDataSource } from '../database/data-source';
 
 
 const livroRoutes = Router();
-const livroRepository = AppDataSource.getRepository(Livro)
+const g_livroRepository = AppDataSource.getRepository(Livro)
 
 
 // rota para todos os livros!
@@ -35,7 +35,7 @@ livroRoutes.get("/BuscarLivro/:livro_id", async(req,res) => {
 })
 
 //rota para postar um livro!
-livroRoutes.post("/AdicionarLivros", async(req: Request, res: Response) =>
+livroRoutes.post("/AdicionarLivro", async(req: Request, res: Response) =>
 {
   console.log("entrei aqui")
   const body = req.body
@@ -59,7 +59,7 @@ livroRoutes.post("/AdicionarLivros", async(req: Request, res: Response) =>
   try
   {
 
-    const livro_salvo = await livroRepository.save(livro)
+    const livro_salvo = await g_livroRepository.save(livro)
     return res.status(200).json(livro_salvo)
   }
 
@@ -78,14 +78,14 @@ livroRoutes.put('/atualizarLivro/:livro_id', async(req, res) =>
     const id_livro = req.params.livro_id
     
 
-    const livro_atualizar = await livroRepository.findOneBy
+    const livro_atualizar = await g_livroRepository.findOneBy
     ({
       id: parseInt(id_livro), 
     });
 
     if(!livro_atualizar)
       {
-        return res.status(500).json({ message: 'O livro não foi encontrado!'});
+        return res.status(500).json({message: 'O livro não foi encontrado!'});
       }
 
     livro_atualizar.titulo = req_body.titulo || livro_atualizar.titulo
@@ -97,7 +97,7 @@ livroRoutes.put('/atualizarLivro/:livro_id', async(req, res) =>
     livro_atualizar.created_at = req_body.created_at || livro_atualizar.created_at
     livro_atualizar.updated_at = req_body.updated_at || livro_atualizar.updated_at
 
-   const livro_atualizado = await livroRepository.save(livro_atualizar)
+   const livro_atualizado = await g_livroRepository.save(livro_atualizar)
     try
     {
       return res.status(200).json(livro_atualizado)
@@ -106,6 +106,29 @@ livroRoutes.put('/atualizarLivro/:livro_id', async(req, res) =>
     catch (error) {
       console.error("Error saving book:", error);
       return res.status(500).json({ message: 'Erro ao salvar livro'});
+    }
+  })
+
+// rota para deletar livro
+livroRoutes.delete('/DeletarLivro/:livro_id', async (req, res) => 
+  {
+    const id_livro = req.params.livro_id
+
+    const livro_to_delete = await g_livroRepository.findOneBy({id: parseInt(id_livro),})
+
+    if(!livro_to_delete)
+      {
+        return res.status(500).json({message: 'O livro não foi encontrado!'});
+      }
+    
+    await g_livroRepository.remove(livro_to_delete)
+    try
+    {
+      return res.status(200).json({ message: 'livro removido'});
+    }
+    catch
+    {
+      return res.status(500).json({ message: 'Erro ao remover livro'});
     }
 
   })
