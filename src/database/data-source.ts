@@ -16,5 +16,5 @@ export const AppDataSource = new DataSource({
     synchronize: true,
     logging: true,
     entities: [Livro, Auditorio, Leitor, Autor],
-    migrations: ["src/database/migrations/*.ts"]
+    migrations: ["src/database/migration/*.ts"]
 })

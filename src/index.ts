@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import express from "express";
 import cors from "cors";
-
+import axios from 'axios'
 import { AppDataSource } from "./database/data-source";
 
 import livroRoutes from "./routes/livro.routes";
@@ -10,6 +10,7 @@ import autorRoutes from "./routes/autor.routes";
 import leitorRoutes from "./routes/leitor.routes";
 
 const app = express();
+
 
 app.use(cors());
 
@@ -30,3 +31,6 @@ app.use("/leitores", leitorRoutes);
 app.listen(3333, () => {
   console.log("Servidor rodando na porta 3333");
 });
+
+
+
